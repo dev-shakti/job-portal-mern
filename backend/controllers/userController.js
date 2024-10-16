@@ -79,7 +79,7 @@ const userLogin = async (req, res) => {
     // Create JWT token
     const token = createToken(user._id);
 
-    user = {
+    const newUser = {
       _id: user._id,
       fullname: user.fullname,
       email: user.email,
@@ -98,7 +98,7 @@ const userLogin = async (req, res) => {
       })
       .json({
         msg: `Welcome back ${user.fullname}`,
-        user,
+        user:newUser,
       });
   } catch (error) {
     console.error("Error while user login", error);

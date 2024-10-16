@@ -9,7 +9,7 @@ const {
 
 router.post("/register", userRegister)
 router.post("/login", userLogin)
-router.put("/profile/update",userProfileUpdate)
+router.patch("/profile/update",userProfileUpdate)
 router.get("/logout",userLogout)
 
 module.exports=router
