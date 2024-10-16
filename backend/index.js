@@ -3,18 +3,22 @@ require("dotenv").config();
 const cors = require("cors");
 const app = express();
 const { connectToDb } = require("./connection");
+const userRouter=require("./routes/userRoutes")
 
 const PORT = process.env.PORT || 3000;
 
 //Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+const corsOptions = {
+  origin:'http://localhost:5173',
+  credentials:true
+}
 
-//routes
-app.get("/", (req, res) => {
-  res.json({ msg: "Welcome to Job portal" });
-});
+app.use(cors(corsOptions));
+
+//api routes
+app.use("/api/v1/user", userRouter);
 
 // Connect to MongoDB and start server
 connectToDb(process.env.MONGO_URI)
