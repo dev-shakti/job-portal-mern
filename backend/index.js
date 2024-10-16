@@ -1,21 +1,30 @@
-const express=require('express');
-require("dotenv").config()
-const cors=require("cors")
-const app=express();
+const express = require("express");
+require("dotenv").config();
+const cors = require("cors");
+const app = express();
+const { connectToDb } = require("./connection");
 
-const PORT=process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-//middlewares
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-app.use(cors())
+//Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 //routes
-app.get("/" , (req,res) => {
-    res.json({msg:"Welcome to Job portal"})
-})
+app.get("/", (req, res) => {
+  res.json({ msg: "Welcome to Job portal" });
+});
 
-//listening to app
-app.listen(PORT, () => {
-    console.log(`Server is running at port: ${PORT}`)
-})
+// Connect to MongoDB and start server
+connectToDb(process.env.MONGO_URI)
+  .then(() => {
+    console.log("mongodb is running");
+    //listening to app
+    app.listen(PORT, () => {
+      console.log(`Server is running at port: ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Error connecting to MongoDB", error);
+  });
