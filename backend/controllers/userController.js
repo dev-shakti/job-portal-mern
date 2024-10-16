@@ -121,7 +121,7 @@ const userLogout = async (req, res) => {
   }
 };
 
-const userUpdate = async (req, res) => {
+const userProfileUpdate = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
     let skillsArray;
@@ -174,5 +174,5 @@ module.exports={
   userRegister,
   userLogin,
   userLogout,
-  userUpdate
+  userProfileUpdate
 }
