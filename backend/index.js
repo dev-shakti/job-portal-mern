@@ -4,12 +4,14 @@ const cors = require("cors");
 const app = express();
 const { connectToDb } = require("./connection");
 const userRouter=require("./routes/userRoutes")
+const cookieParser = require('cookie-parser');
 
 const PORT = process.env.PORT || 3000;
 
 //Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 const corsOptions = {
   origin:'http://localhost:5173',
   credentials:true
