@@ -140,9 +140,9 @@ const userProfileUpdate = async (req, res) => {
     }
     
     //updating document
-    if (user.fullname) user.fullname = fullname;
-    if (user.email) user.email = email;
-    if (user.password) user.password= password;
+    if (fullname) user.fullname = fullname;
+    if (email) user.email = email;
+    if (phoneNumber) user.phoneNumber= phoneNumber;
     if (bio) user.profile.bio = bio;
     if (skillsArray) user.profile.skills = skillsArray;
 

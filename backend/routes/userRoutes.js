@@ -10,7 +10,7 @@ const authenticate=require("../middlewares/authenticate")
 
 router.post("/register", userRegister)
 router.post("/login", userLogin)
-router.patch("/profile/update",authenticate,userProfileUpdate)
+router.put("/profile/update",authenticate,userProfileUpdate)
 router.get("/logout",userLogout)
 
 module.exports=router

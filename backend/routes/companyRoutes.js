@@ -9,7 +9,7 @@ const {
 const authenticate=require("../middlewares/authenticate");
 
 // Register a new company
-router.post("/registerCompany", authenticate, registerCompany);
+router.post("/registercompany", authenticate, registerCompany);
 
 // Get all companies for the authenticated user
 router.get("/getCompanies", authenticate, getCompanies);

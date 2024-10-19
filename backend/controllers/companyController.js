@@ -10,13 +10,13 @@ const registerCompany = async (req, res) => {
     }
 
     // Check if the company already exists
-    const company=await Company.findOne({name:companyName});
+    const company=await Company.findOne({name});
     if(company){
         return res.status(400).json({msg:"You can't register same company."});
     }
 
     const newCompany=await Company({
-        name:companyName,
+        name,
         description,
         website,
         location,
@@ -39,7 +39,7 @@ const registerCompany = async (req, res) => {
 const getCompanies = async (req, res) => {
   try {
     const userId=req.userId;
-    const companies=await Company.find(userId);
+    const companies=await Company.find({userId});
     if(companies.length === 0){
       return res.status(404).json({msg:"No such companies found"});
     }
@@ -54,8 +54,8 @@ const getCompanies = async (req, res) => {
 
 const getCompanyById = async (req, res) => {
   try {
-    const userId=req.userId;
-    const company=await Company.findOne(userId);
+    const companyId = req.params.id; 
+    const company = await Company.findById(companyId);
     if(!company){
       return res.status(404).json({msg:"company not found"})
     }
