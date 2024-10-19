@@ -1,5 +1,6 @@
 const Job = require("../models/jobModel");
 
+// Register a new job
 const postJob = async (req,res) => {
   try {
     const {
@@ -22,7 +23,7 @@ const postJob = async (req,res) => {
     const job=await Job.create({
         title,
         description,
-        requirements:requirements.splits(","),
+        requirements:requirements.split(","),
         salary:Number(salary),
         location,
         jobType,
@@ -42,6 +43,7 @@ const postJob = async (req,res) => {
   }
 };
 
+// Get all jobs with optional keyword search
 const getAllJobs = async (req,res) => {
   try {
     const keyword = req.query.keyword || "";
@@ -52,10 +54,8 @@ const getAllJobs = async (req,res) => {
         ]
     };
     const jobs = await Job.find(query);
-    if (!jobs) {
-        return res.status(404).json({message: "Jobs not found."});
-    };
-    return res.status(200).json({jobs})
+    return res.status(200).json({ jobs });
+
   } catch (error) {
     console.error("Error while getting jobs", error);
     return res
@@ -67,7 +67,7 @@ const getAllJobs = async (req,res) => {
 const getSingleJob = async (req,res) => {
   try {
     const jobId=req.params.id;
-    const job=await Job.findOne(jobId)
+    const job=await Job.findById(jobId)
     if(!job){
         return res.status(404).json({msg:"Job not found"})
     }
@@ -83,7 +83,7 @@ const getSingleJob = async (req,res) => {
 const getAdminJobs = async (req,res) => {
   try {
     const adminId=req.params.id;
-    const jobs=await Job.findOne({created_by:adminId});
+    const jobs=await Job.find({created_by:adminId});
     if (!jobs) {
         return res.status(404).json({message: "Jobs not found."});
     };
