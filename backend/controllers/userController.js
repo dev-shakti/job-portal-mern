@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 //creating token
 const createToken = (id) => {
-  return jwt.sign({ id }, process.env.SECRET_KEY, { expiresIn: "1d" });
+  return jwt.sign({ userId:id }, process.env.SECRET_KEY, { expiresIn: "1d" });
 };
 
 const userRegister = async (req, res) => {
@@ -128,7 +128,7 @@ const userProfileUpdate = async (req, res) => {
     if (skills) {
       skillsArray = skills.split(",").map(skill => skill.trim());
     }
-    const userId = req.id; // middleware authentication
+    const userId = req.userId; // middleware authentication
 
     
     // Get userId from middleware
