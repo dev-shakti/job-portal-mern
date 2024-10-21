@@ -4,6 +4,7 @@ import Browse from "./pages/Browse";
 import HomePage from "./pages/HomePage";
 import Jobs from "./pages/Jobs";
 import LoginPage from "./pages/LoginPage";
+import Profile from "./pages/Profile";
 import RegisterPage from "./pages/RegisterPage";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: '/browse',
         element: <Browse/>,
+      },
+      {
+        path: '/profile',
+        element: <Profile/>,
       },
     ],
   },

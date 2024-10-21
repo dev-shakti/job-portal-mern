@@ -10,7 +10,7 @@ import { Badge } from "./ui/badge";
 
 const LatestJobCard = () => {
   return (
-    <Card className="shadow-lg">
+    <Card className="shadow-lg mb-4 md:mb-0">
       <CardHeader>
         <CardTitle>Company</CardTitle>
         <CardDescription className=" text-slate-500">India</CardDescription>

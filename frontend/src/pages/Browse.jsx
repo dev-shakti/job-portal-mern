@@ -4,7 +4,7 @@ const searchjobs=[1,2,3]
 
 const Browse = () => {
   return (
-    <div className="px-4 py-16">
+    <div className="px-4 py-12">
       <div className="max-w-7xl mx-auto">
         <h2 className="font-medium text-2xl">
           Search results: <span className="text-[#8e44ad]">(3)</span>

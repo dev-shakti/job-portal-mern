@@ -8,7 +8,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
 
 const Navbar = () => {
-  const user = false;
+  const user = true;
   return (
     <nav className="border-b bg-white py-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -55,7 +55,7 @@ const Navbar = () => {
                   <span className="text-sm font-bold">John Doe</span>
                 </div>
                 <div className="flex flex-col gap-6">
-                  <Link>
+                  <Link to="/profile">
                     <Button variant={"outline"} className="w-full">
                       View Profile
                     </Button>

@@ -10,7 +10,7 @@ import { Bookmark } from "lucide-react";
 
 const Job = () => {
   return (
-    <Card className="shadow-lg">
+    <Card className="shadow-lg mb-4 md:mb-0">
       <CardHeader>
         <div className="flex items-center justify-between">
           <p className="text-sm text-slate-500">2 days ago</p>
