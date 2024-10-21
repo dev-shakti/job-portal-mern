@@ -1,6 +1,7 @@
 import AuthLayout from "./layout/AuthLayout";
 import MainLayout from "./layout/MainLayout";
 import HomePage from "./pages/HomePage";
+import Jobs from "./pages/Jobs";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -15,8 +16,8 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: 'about',
-        element: <h2>About</h2>,
+        path: '/jobs',
+        element: <Jobs/>,
       },
     ],
   },
