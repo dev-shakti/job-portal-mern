@@ -37,7 +37,7 @@ const Navbar = () => {
                 <Button variant={"outline"}>Signup</Button>
               </Link>
               <Link to="/auth/login">
-                <Button>Login</Button>
+                <Button className='bg-[#8e44ad]'>Login</Button>
               </Link>
             </div>
           ) : (
