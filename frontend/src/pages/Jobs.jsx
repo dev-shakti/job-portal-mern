@@ -1,3 +1,4 @@
+import FilterCards from "@/components/FilterCards";
 import Job from "@/components/Job";
 
 const jobsArray = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -6,7 +7,9 @@ const Jobs = () => {
   return (
     <div className="px-4 py-16">
       <div className="max-w-7xl mx-auto flex gap-8">
-        <div className="bg-red-200 w-[20%]"></div>
+        <div className=" w-[20%]">
+          <FilterCards/>
+        </div>
         {jobsArray.length === 0 ? (
           <div>No Job Found !</div>
         ) : (   

@@ -1,5 +1,6 @@
 import AuthLayout from "./layout/AuthLayout";
 import MainLayout from "./layout/MainLayout";
+import Browse from "./pages/Browse";
 import HomePage from "./pages/HomePage";
 import Jobs from "./pages/Jobs";
 import LoginPage from "./pages/LoginPage";
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: '/jobs',
         element: <Jobs/>,
+      },
+      {
+        path: '/browse',
+        element: <Browse/>,
       },
     ],
   },
