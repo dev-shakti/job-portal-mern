@@ -32,7 +32,6 @@ const LoginPage = () => {
     try {
       dispatch(setLoading(true));
       const response = await loginUser(formData);
-      console.log(response.data);
       if (response.status === 201) {
         dispatch(setUser(response.data.user))
         navigate("/");

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Popover,
   PopoverContent,
@@ -6,10 +6,26 @@ import {
 } from "@/components/ui/popover";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "@/http/apis";
+import { setUser } from "@/store/authSlice";
 
 const Navbar = () => {
-  const { user} = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await logoutUser();
+      if (response.status === 200) {
+        dispatch(setUser(null));
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <nav className="border-b bg-white py-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -38,7 +54,7 @@ const Navbar = () => {
                 <Button variant={"outline"}>Signup</Button>
               </Link>
               <Link to="/auth/login">
-                <Button className='bg-[#8e44ad]'>Login</Button>
+                <Button className="bg-[#8e44ad]">Login</Button>
               </Link>
             </div>
           ) : (
@@ -53,7 +69,7 @@ const Navbar = () => {
                   <Avatar>
                     <AvatarImage src="https://github.com/shadcn.png" />
                   </Avatar>
-                  <span className="text-sm font-bold">John Doe</span>
+                  <span className="text-sm font-bold">{user?.fullname}</span>
                 </div>
                 <div className="flex flex-col gap-6">
                   <Link to="/profile">
@@ -62,7 +78,9 @@ const Navbar = () => {
                     </Button>
                   </Link>
                   <Link>
-                    <Button className="w-full">Logout</Button>
+                    <Button className="w-full" onClick={handleLogout}>
+                      Logout
+                    </Button>
                   </Link>
                 </div>
               </PopoverContent>

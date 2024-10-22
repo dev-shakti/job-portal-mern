@@ -3,11 +3,16 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import UpdateProfileDialog from "@/components/UpdateProfileDialog";
 import { Contact, Mail, Pen } from "lucide-react";
-const skills = ["HTML", "CSS", "JavaScript", "ReactJs", "Mongo DB", "Node.JS"];
+import { useState } from "react";
+import { useSelector } from "react-redux";
+
 const isResume = true;
 
 const Profile = () => {
+  const [open,setOpen]=useState(false);
+  const {user } = useSelector((state) => state.auth);
   return (
     <div className="px-4 py-12">
       <div className="max-w-5xl mx-auto flex flex-col gap-8 shadow-xl bg-white border border-slate-200 rounded-2xl p-8">
@@ -17,22 +22,22 @@ const Profile = () => {
               <AvatarImage src="https://github.com/shadcn.png" />
             </Avatar>
             <div className="flex flex-col gap-1">
-              <h3 className="font-bold text-2xl">John Doe</h3>
+              <h3 className="font-bold text-2xl">{user?.fullname}</h3>
               <p className="text-sm text-slate-600">
-                Lorem ipsum dolor sit amet.
+                {user?.profile?.bio}
               </p>
             </div>
           </div>
-          <Button className="cursor-pointer" variant="outline">
+          <Button className="cursor-pointer" variant="outline" onClick={() => setOpen(true)}>
             <Pen />
           </Button>
         </div>
         <div className="flex flex-col gap-2">
           <div className="flex item-center gap-4">
-            <Mail /> <span>John@gmail.com</span>
+            <Mail /> <span>{user?.email}</span>
           </div>
           <div className="flex item-center gap-4">
-            <Contact /> <span>9326856937</span>
+            <Contact /> <span>{user?.phoneNumber}</span>
           </div>
         </div>
         <div>
@@ -40,8 +45,8 @@ const Profile = () => {
             <strong>Skills: </strong>
           </p>
           <div className="flex gap-4 items-center mt-4">
-            {skills.length >= 0 ? (
-              skills.map((skill, index) => (
+            {user?.profile?.skills.length >= 0 ? (
+             user?.profile?.skills.map((skill, index) => (
                 <Badge key={index} className="p-2 cursor-pointer bg-slate-500">
                   {skill}
                 </Badge>
@@ -70,6 +75,7 @@ const Profile = () => {
            <AppliedJobTable/>
         </div>
       </div>
+      <UpdateProfileDialog open={open} setOpen={setOpen}/>
     </div>
   );
 };
