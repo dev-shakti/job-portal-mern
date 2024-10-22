@@ -6,9 +6,10 @@ import {
 } from "@/components/ui/popover";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const user = true;
+  const { user} = useSelector((state) => state.auth);
   return (
     <nav className="border-b bg-white py-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">

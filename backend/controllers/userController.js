@@ -11,7 +11,7 @@ const userRegister = async (req, res) => {
   const { fullname, email, password, phoneNumber, role } = req.body;
 
   // Validate required fields
-  if (!fullname || !email || !phoneNumber || !password) {
+  if (!fullname || !email || !phoneNumber || !password || !role) {
     return res.status(400).json({ msg: "All fields are required" });
   }
 
@@ -90,7 +90,7 @@ const userLogin = async (req, res) => {
 
     // Set cookie with JWT
     return res
-      .status(200)
+      .status(201)
       .cookie("token", token, {
         maxAge: 1 * 24 * 60 * 60 * 1000,
         httpsOnly: true,
