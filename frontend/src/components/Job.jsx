@@ -7,16 +7,26 @@ import {
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Bookmark } from "lucide-react";
-import { Link,useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-const Job = () => {
-  const { id } = useParams(); 
-  const jobId = id;
+const Job = ({ job }) => {
+  //const { id } = useParams();
+  //const jobId = id;
+  const daysAgoFunction = (mongodbTime) => {
+    const createdAt = new Date(mongodbTime);
+    const currentTime = new Date();
+    const timeDifference = currentTime - createdAt;
+    return Math.floor(timeDifference / (1000 * 24 * 60 * 60));
+  };
   return (
     <Card className="shadow-lg mb-4 md:mb-0">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <p className="text-sm text-slate-500">2 days ago</p>
+          <p className="text-sm text-slate-500">
+            {daysAgoFunction(job?.createdAt) === 0
+              ? "Today"
+              : `${daysAgoFunction(job?.createdAt)} days ago`}
+          </p>
           <Button variant="outline" className="rounded-full" size="icon">
             <Bookmark />
           </Button>
@@ -24,35 +34,29 @@ const Job = () => {
         <div className="flex gap-4">
           <p>Logo</p>
           <div>
-            <h4 className="text-lg font-medium ">Company</h4>
+            <h4 className="text-lg font-medium ">{job?.company?.name}</h4>
             <p className="text-sm text-slate-500">India</p>
           </div>
         </div>
       </CardHeader>
       <CardContent>
-        <p className="font-medium text-lg text-slate-700">
-          Frontend development
-        </p>
-        <p className="text-sm text-slate-500">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore,
-          officiis!
-        </p>
+        <p className="font-medium text-lg text-slate-700">{job?.title}</p>
+        <p className="text-sm text-slate-500">{job?.description}</p>
         <div className="mt-4">
           <Badge className={"text-[#4834d4] font-bold"} variant="ghost">
-            10 Positions
+            {job?.position} Positions
           </Badge>
           <Badge className={"text-[#F83002] font-bold"} variant="ghost">
-            Fulltime
+            {job?.jobType}
           </Badge>
           <Badge className={"text-[#8e44ad] font-bold"} variant="ghost">
-            8 LPA
+            {job?.salary} LPA
           </Badge>
         </div>
       </CardContent>
       <CardFooter>
-        <Link to={`/description/${jobId}`}></Link>
         <Button variant={"ghost"}>Details</Button>
-        <Button className="bg-[#8e44ad] ml-2">Details</Button>
+        <Button className="bg-[#8e44ad] ml-2">Save for later</Button>
       </CardFooter>
     </Card>
   );
