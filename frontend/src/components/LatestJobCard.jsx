@@ -8,29 +8,28 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "./ui/badge";
 
-const LatestJobCard = () => {
+const LatestJobCard = ({job}) => {
   return (
     <Card className="shadow-lg mb-4 md:mb-0">
       <CardHeader>
-        <CardTitle>Company</CardTitle>
+        <CardTitle>{job?.company?.name}</CardTitle>
         <CardDescription className=" text-slate-500">India</CardDescription>
       </CardHeader>
       <CardContent>
-        <p className='font-medium text-lg text-slate-700'>Frontend development</p>
+        <p className='font-medium text-lg text-slate-700'>{job?.title}</p>
         <p className="text-sm text-slate-500">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore,
-          officiis!
+        {job?.description}
         </p>
       </CardContent>
       <CardFooter>
         <Badge className={"text-[#4834d4] font-bold"} variant="ghost">
-          10 Positions
+        {job?.description} Positions
         </Badge>
         <Badge className={"text-[#F83002] font-bold"} variant="ghost">
-          Fulltime
+        {job?.jobType} 
         </Badge>
         <Badge className={"text-[#8e44ad] font-bold"} variant="ghost">
-          8 LPA
+          {job?.salary} LPA
         </Badge>
       </CardFooter>
     </Card>
