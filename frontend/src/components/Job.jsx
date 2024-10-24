@@ -7,8 +7,11 @@ import {
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Bookmark } from "lucide-react";
+import { Link,useParams } from "react-router-dom";
 
 const Job = () => {
+  const { id } = useParams(); 
+  const jobId = id;
   return (
     <Card className="shadow-lg mb-4 md:mb-0">
       <CardHeader>
@@ -47,6 +50,7 @@ const Job = () => {
         </div>
       </CardContent>
       <CardFooter>
+        <Link to={`/description/${jobId}`}></Link>
         <Button variant={"ghost"}>Details</Button>
         <Button className="bg-[#8e44ad] ml-2">Details</Button>
       </CardFooter>

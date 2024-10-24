@@ -1,3 +1,4 @@
+import JobDetails from "./components/JobDetails";
 import AuthLayout from "./layout/AuthLayout";
 import MainLayout from "./layout/MainLayout";
 import Browse from "./pages/Browse";
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <Profile/>,
+      },
+      {
+        path: '/jobdetails/:id',
+        element: <JobDetails/>,
       },
     ],
   },
