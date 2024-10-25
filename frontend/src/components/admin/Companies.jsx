@@ -15,7 +15,7 @@ const Companies = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <Link to="/admin/companies/create">
+        <Link to="/admin/company/create">
           <Button>New Company</Button>
         </Link>
       </div>
