@@ -1,3 +1,5 @@
+import Companies from "./components/admin/Companies";
+import CreateCompany from "./components/admin/CreateCompany";
 import JobDetails from "./components/JobDetails";
 import AuthLayout from "./layout/AuthLayout";
 import MainLayout from "./layout/MainLayout";
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
       {
         path: '/jobdetails/:id',
         element: <JobDetails/>,
+      },
+      {
+        path: '/admin/companies',
+        element: <Companies/>,
+      },
+      {
+        path: '/admin/company/create',
+        element: <CreateCompany/>,
       },
     ],
   },
