@@ -6,6 +6,7 @@ const { connectToDb } = require("./connection");
 const userRouter=require("./routes/userRoutes")
 const companyRouter=require("./routes/companyRoutes")
 const jobRouter=require("./routes/jobRoutes")
+const applicationRouter=require("./routes/applicationRoutes")
 const cookieParser = require('cookie-parser');
 
 const PORT = process.env.PORT || 3000;
@@ -25,6 +26,7 @@ app.use(cors(corsOptions));
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/company", companyRouter);
 app.use("/api/v1/job", jobRouter);
+app.use("/api/v1/application", applicationRouter);
 
 // Connect to MongoDB and start server
 connectToDb(process.env.MONGO_URI)
