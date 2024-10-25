@@ -23,7 +23,7 @@ const LatestJobCard = ({job}) => {
       </CardContent>
       <CardFooter>
         <Badge className={"text-[#4834d4] font-bold"} variant="ghost">
-        {job?.description} Positions
+        {job?.position} Positions
         </Badge>
         <Badge className={"text-[#F83002] font-bold"} variant="ghost">
         {job?.jobType} 

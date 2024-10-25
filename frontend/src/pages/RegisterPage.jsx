@@ -35,14 +35,13 @@ const RegisterPage = () => {
     try {
       dispatch(setLoading(true));
       const response = await registerUser(formData);
-      console.log(response.data);
       if (response.status===201) {
         navigate("/auth/login");
-        toast.success(response.data.message);
+        toast.success(response.data.msg);
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response?.data?.message || "An error occurred");
+      toast.error(error.response?.data?.msg || "An error occurred");
     } finally {
       dispatch(setLoading(false));
     }

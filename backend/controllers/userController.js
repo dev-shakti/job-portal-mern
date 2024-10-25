@@ -90,7 +90,7 @@ const userLogin = async (req, res) => {
 
     // Set cookie with JWT
     return res
-      .status(201)
+      .status(200)
       .cookie("token", token, {
         maxAge: 1 * 24 * 60 * 60 * 1000,
         httpsOnly: true,

@@ -25,6 +25,7 @@ const LoginPage = () => {
     role:""
   });
   const { isLoading} = useSelector((state) => state.auth);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -32,14 +33,15 @@ const LoginPage = () => {
     try {
       dispatch(setLoading(true));
       const response = await loginUser(formData);
-      if (response.status === 201) {
+      if (response.status === 200) {
         dispatch(setUser(response.data.user))
         navigate("/");
-        toast.success(response.data.message);
+        console.log(response.data)
+        toast.success(response.data.msg);
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response?.data?.message || "An error occurred");
+      toast.error(error.response?.data?.msg || "An error occurred");
     } finally {
       dispatch(setLoading(false));
     }
