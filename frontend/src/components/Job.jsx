@@ -7,17 +7,19 @@ import {
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Bookmark } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Job = ({ job }) => {
-  //const { id } = useParams();
-  //const jobId = id;
+  const navigate = useNavigate();
+  const jobId = "sfsfewew";
+
   const daysAgoFunction = (mongodbTime) => {
     const createdAt = new Date(mongodbTime);
     const currentTime = new Date();
     const timeDifference = currentTime - createdAt;
     return Math.floor(timeDifference / (1000 * 24 * 60 * 60));
   };
+
   return (
     <Card className="shadow-lg mb-4 md:mb-0">
       <CardHeader>
@@ -55,7 +57,12 @@ const Job = ({ job }) => {
         </div>
       </CardContent>
       <CardFooter>
-        <Button variant={"ghost"}>Details</Button>
+        <Button
+          variant={"ghost"}
+          onClick={() => navigate(`/jobdetails/${jobId}`)}
+        >
+          Details
+        </Button>
         <Button className="bg-[#8e44ad] ml-2">Save for later</Button>
       </CardFooter>
     </Card>

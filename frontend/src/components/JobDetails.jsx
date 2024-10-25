@@ -7,8 +7,8 @@ const JobDetails = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-4">
-            <h1>Frontend Developer</h1>
-            <div>
+            <h1 className="text-2xl font-bold">Frontend Developer</h1>
+            <div className="">
               <Badge className={"text-[#4834d4] font-bold"} variant="ghost">
                 10 Positions
               </Badge>
@@ -24,16 +24,16 @@ const JobDetails = () => {
             Apply Jobs
           </Button>
         </div>
-        <h3>Job Description</h3>
-        <hr />
+        <h3  className="text-xl font-medium mt-4">Job Description</h3>
+        <hr className="my-4"/>
         <div className="flex flex-col gap-4">
-            <p><b>Role:</b>Frontend Deveolper</p>
-            <p><b>Location:</b>Hyderbad</p>
-            <p><b>Description:</b>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, adipisci.</p>
-            <p><b>Experience:</b>2+ years</p>
-            <p><b>Salary:</b>8 LPA</p>
-            <p><b>Total Applicants:</b>4</p>
-            <p><b>Posted Date:</b>15.10.2024</p>
+            <p><b>Role: </b>Frontend Deveolper</p>
+            <p><b>Location: </b>Hyderbad</p>
+            <p><b>Description: </b>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, adipisci.</p>
+            <p><b>Experience: </b>2+ years</p>
+            <p><b>Salary: </b>8 LPA</p>
+            <p><b>Total Applicants: </b>4</p>
+            <p><b>Posted Date: </b>15.10.2024</p>
         </div>
       </div>
     </div>
