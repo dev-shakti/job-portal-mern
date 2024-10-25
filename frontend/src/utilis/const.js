@@ -1,1 +1,2 @@
 export const JOB_API_END_POINT="http://localhost:8080/api/v1/job";
+export const COMPANY_API_END_POINT="http://localhost:8080/api/v1/company";
