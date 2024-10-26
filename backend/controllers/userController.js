@@ -1,10 +1,11 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const getDataUri = require("../utilis/dataUri");
 
 //creating token
 const createToken = (id) => {
-  return jwt.sign({ userId:id }, process.env.SECRET_KEY, { expiresIn: "1d" });
+  return jwt.sign({ userId: id }, process.env.SECRET_KEY, { expiresIn: "1d" });
 };
 
 const userRegister = async (req, res) => {
@@ -14,6 +15,10 @@ const userRegister = async (req, res) => {
   if (!fullname || !email || !phoneNumber || !password || !role) {
     return res.status(400).json({ msg: "All fields are required" });
   }
+
+  const file = req.file;
+  const fileUri = getDataUri(file);
+  const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
   try {
     // Check if user already exists
@@ -34,6 +39,9 @@ const userRegister = async (req, res) => {
       password: hashedPassword,
       phoneNumber,
       role,
+      profile: {
+        profilePhoto: cloudResponse.secure_url,
+      },
     });
 
     return res.status(201).json({
@@ -98,7 +106,7 @@ const userLogin = async (req, res) => {
       })
       .json({
         msg: `Welcome back ${user.fullname}`,
-        user:newUser,
+        user: newUser,
       });
   } catch (error) {
     console.error("Error while user login", error);
@@ -124,13 +132,17 @@ const userLogout = async (req, res) => {
 const userProfileUpdate = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
+
+    const file = req.file;
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
     let skillsArray;
     if (skills) {
-      skillsArray = skills.split(",").map(skill => skill.trim());
+      skillsArray = skills.split(",").map((skill) => skill.trim());
     }
     const userId = req.userId; // middleware authentication
 
-    
     // Get userId from middleware
     let user = await User.findById(userId);
 
@@ -138,13 +150,18 @@ const userProfileUpdate = async (req, res) => {
     if (!user) {
       return res.status(400).json({ msg: "User not found" });
     }
-    
+
     //updating document
     if (fullname) user.fullname = fullname;
     if (email) user.email = email;
-    if (phoneNumber) user.phoneNumber= phoneNumber;
+    if (phoneNumber) user.phoneNumber = phoneNumber;
     if (bio) user.profile.bio = bio;
     if (skillsArray) user.profile.skills = skillsArray;
+
+    if(cloudResponse){
+      user.profile.resume = cloudResponse.secure_url // save the cloudinary url
+      user.profile.resumeOriginalName = file.originalname // Save the original file name
+  }
 
     // Save the updated user document
     await user.save();
@@ -170,9 +187,9 @@ const userProfileUpdate = async (req, res) => {
   }
 };
 
-module.exports={
+module.exports = {
   userRegister,
   userLogin,
   userLogout,
-  userProfileUpdate
-}
+  userProfileUpdate,
+};

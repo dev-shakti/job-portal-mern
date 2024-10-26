@@ -1,7 +1,7 @@
 const Company = require("../models/companyModel");
 
 const registerCompany = async (req, res) => {
-  console.log(req.body)
+ 
   try {
     const { name, description, website, location, logo } = req.body;
 
@@ -71,8 +71,15 @@ const getCompanyById = async (req, res) => {
 
 const updateCompany = async (req, res) => {
   try {
-    const { name, description, website, location,logo } = req.body;
+    const { name, description, website, location } = req.body;
+
+    const file = req.file;
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+    const logo = cloudResponse.secure_url;
+
     const id=req.params.id;
+
     // Update company by ID and return the updated document
     const company = await Company.findByIdAndUpdate(
       id, 
