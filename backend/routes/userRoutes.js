@@ -6,11 +6,12 @@ const {
     userLogout, 
     userProfileUpdate
 }=require("../controllers/userController");
-const authenticate=require("../middlewares/authenticate")
+const authenticate=require("../middlewares/authenticate");
+const singleUpload = require("../middlewares/multer");
 
-router.post("/register", userRegister)
+router.post("/register",singleUpload, userRegister)
 router.post("/login", userLogin)
-router.put("/profile/update",authenticate,userProfileUpdate)
+router.put("/profile/update",authenticate,singleUpload,userProfileUpdate)
 router.get("/logout",userLogout)
 
 module.exports=router

@@ -7,6 +7,7 @@ const {
     updateCompany 
 }=require("../controllers/companyController");
 const authenticate=require("../middlewares/authenticate");
+const singleUpload = require("../middlewares/multer");
 
 // Register a new company
 router.post("/registercompany", authenticate, registerCompany);
@@ -18,6 +19,6 @@ router.get("/getCompanies", authenticate, getCompanies);
 router.get("/getCompany/:id", authenticate, getCompanyById);
 
 // Update a company by ID
-router.put("/updateCompany/:id", authenticate, updateCompany);
+router.put("/updateCompany/:id", authenticate,singleUpload, updateCompany);
 
 module.exports=router;
