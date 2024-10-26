@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const getDataUri = require("../utilis/dataUri");
+const cloudinary=require("../utilis/clodinary");
 
 //creating token
 const createToken = (id) => {
@@ -134,6 +135,7 @@ const userProfileUpdate = async (req, res) => {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
 
     const file = req.file;
+    console.log(req.body,req.file)
     const fileUri = getDataUri(file);
     const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
@@ -176,7 +178,7 @@ const userProfileUpdate = async (req, res) => {
     };
 
     return res.status(200).json({
-      message: "Profile updated successfully.",
+      msg: "Profile updated successfully.",
       user,
     });
   } catch (error) {

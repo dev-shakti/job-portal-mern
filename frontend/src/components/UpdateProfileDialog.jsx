@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { updateUser } from "@/http/apis";
 import { setLoading, setUser } from "@/store/authSlice";
+import { toast } from "sonner";
 
 const UpdateProfileDialog = ({ open, setOpen }) => {
 
@@ -50,13 +51,15 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     }
 
     try {
-        dispatch(setLoading(true))
+      dispatch(setLoading(true))
       const response = await updateUser(formData);
       if(response.status===200){
-        dispatch(setUser(response.data.user))
+        dispatch(setUser(response.data.user));
+        toast.success(response.data.msg);
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.response?.data?.msg || "An error occurred");
     }finally{
         dispatch(setLoading(false))
     }

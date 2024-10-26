@@ -13,13 +13,14 @@ const isResume = true;
 const Profile = () => {
   const [open,setOpen]=useState(false);
   const {user } = useSelector((state) => state.auth);
+
   return (
     <div className="px-4 py-12">
       <div className="max-w-5xl mx-auto flex flex-col gap-8 shadow-xl bg-white border border-slate-200 rounded-2xl p-8">
         <div className="flex items-center justify-between">
           <div className="flex gap-4">
             <Avatar className="h-20 w-20">
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage src={user?.profile?.profilePhoto} />
             </Avatar>
             <div className="flex flex-col gap-1">
               <h3 className="font-bold text-2xl">{user?.fullname}</h3>
@@ -64,7 +65,7 @@ const Profile = () => {
               href="http://www.google.com"
               className="text-blue-500 w-full hover:underline cursor-pointer"
             >
-              John Doe
+              {user?.profile?.resumeOriginalName}
             </a>
           ) : (
             <span>NA</span>

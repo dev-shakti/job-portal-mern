@@ -6,7 +6,7 @@ const apis = axios.create({
 
 export const registerUser = async (data) => {
   return apis.post("/user/register", data, {
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "multipart/form-data" },
     withCredentials: true,
   });
 };
@@ -26,7 +26,7 @@ export const logoutUser = async () => {
 
 export const updateUser = async (data) => {
   return apis.put("/user/profile/update", data, {
-    headers: { "Content-Type": "application/json" },
+    headers: {  'Content-Type': 'multipart/form-data' },
     withCredentials: true,
   });
 };

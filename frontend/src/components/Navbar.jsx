@@ -74,13 +74,13 @@ const Navbar = () => {
             <Popover>
               <PopoverTrigger>
                 <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage src={user?.profile?.profilePhoto} />
                 </Avatar>
               </PopoverTrigger>
               <PopoverContent className="w-80 flex flex-col gap-4">
                 <div className="flex gap-4 items-start">
                   <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarImage src={user?.profile?.profilePhoto}/>
                   </Avatar>
                   <span className="text-sm font-bold">{user?.fullname}</span>
                 </div>
