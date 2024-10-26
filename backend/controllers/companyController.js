@@ -1,6 +1,7 @@
 const Company = require("../models/companyModel");
 
 const registerCompany = async (req, res) => {
+  console.log(req.body)
   try {
     const { name, description, website, location, logo } = req.body;
 
@@ -26,7 +27,7 @@ const registerCompany = async (req, res) => {
 
     await newCompany.save();
 
-    return res.status(201).json({message: "Company registered successfully.",newCompany});
+    return res.status(201).json({msg: "Company registered successfully.",newCompany});
 
   } catch (error) {
     console.error("Error while register user", error);

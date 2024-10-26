@@ -4,15 +4,17 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import axios from "axios";
 import { COMPANY_API_END_POINT } from "@/utilis/const";
+import { toast } from "sonner";
 
 const CreateCompany = () => {
-  const [companyName, setCompanyName] = useState("");
+  const [name, setName] = useState("");
   
   const registerNewCompany = async () => {
+    console.log(name)
     try {
       const response = await axios.post(
-        `${COMPANY_API_END_POINT}/registerCompany`,
-        {companyName},
+        `${COMPANY_API_END_POINT}/registercompany`,
+        {name},
         {
           headers: {
             "Content-Type": "application/json",
@@ -21,8 +23,10 @@ const CreateCompany = () => {
         }
       );
       console.log(response.data)
+      toast.success(response.data.msg);
     } catch (error) {
       console.log(error);
+      toast.error(error.response?.data?.msg || "An error occurred");
     }
   };
   return (
@@ -39,8 +43,8 @@ const CreateCompany = () => {
             type="text"
             placeholder="Microsoft, Amazon etc..."
             className="my-2"
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div>
