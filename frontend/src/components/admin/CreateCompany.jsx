@@ -5,16 +5,18 @@ import { Input } from "../ui/input";
 import axios from "axios";
 import { COMPANY_API_END_POINT } from "@/utilis/const";
 import { toast } from "sonner";
+import { Link } from "react-router-dom";
 
 const CreateCompany = () => {
   const [name, setName] = useState("");
-  
+  const companyId = "affsflhkh";
+
   const registerNewCompany = async () => {
-    console.log(name)
+    console.log(name);
     try {
       const response = await axios.post(
         `${COMPANY_API_END_POINT}/registercompany`,
-        {name},
+        { name },
         {
           headers: {
             "Content-Type": "application/json",
@@ -22,7 +24,7 @@ const CreateCompany = () => {
           withCredentials: true,
         }
       );
-      console.log(response.data)
+      console.log(response.data);
       toast.success(response.data.msg);
     } catch (error) {
       console.log(error);
@@ -48,10 +50,14 @@ const CreateCompany = () => {
           />
         </div>
         <div>
-          <Button variant="outline">Cancel</Button>
-          <Button className="ml-4" onClick={registerNewCompany}>
-            Continue
-          </Button>
+          <Link to="/admin/companies">
+            <Button variant="outline">Cancel</Button>
+          </Link>
+          <Link to={`/admin/company/${companyId}`}>
+            <Button className="ml-4" onClick={registerNewCompany}>
+              Continue
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
