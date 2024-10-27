@@ -5,11 +5,14 @@ import { Input } from "../ui/input";
 import axios from "axios";
 import { COMPANY_API_END_POINT } from "@/utilis/const";
 import { toast } from "sonner";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { registerSingleCompany } from "@/store/companyslice";
 
 const CreateCompany = () => {
   const [name, setName] = useState("");
-  const companyId = "affsflhkh";
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
 
   const registerNewCompany = async () => {
     console.log(name);
@@ -24,7 +27,10 @@ const CreateCompany = () => {
           withCredentials: true,
         }
       );
-      console.log(response.data);
+      console.log(response)
+      dispatch(registerSingleCompany(response.data.newCompany));
+      const companyId = response?.data?.newCompany?._id;
+      navigate(`/admin/company/${companyId}`);
       toast.success(response.data.msg);
     } catch (error) {
       console.log(error);
@@ -53,11 +59,9 @@ const CreateCompany = () => {
           <Link to="/admin/companies">
             <Button variant="outline">Cancel</Button>
           </Link>
-          <Link to={`/admin/company/${companyId}`}>
             <Button className="ml-4" onClick={registerNewCompany}>
               Continue
             </Button>
-          </Link>
         </div>
       </div>
     </div>
