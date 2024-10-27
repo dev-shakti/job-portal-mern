@@ -1,7 +1,7 @@
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -9,6 +9,7 @@ import { COMPANY_API_END_POINT } from "@/utilis/const";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { setLoading } from "@/store/companyslice";
+import { useGetSingleCompany } from "@/hooks/useGetSingleCompany";
 
 const CompanySetup = () => {
   const [inputs, setInputs] = useState({
@@ -19,9 +20,10 @@ const CompanySetup = () => {
     file: null,
   });
   const params = useParams();
+  useGetSingleCompany(params.id)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, singleCompany } = useSelector((state) => state.company);
+  const { isLoading, singleCompany} = useSelector((state) => state.company);
 
   const handleInputChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -30,6 +32,16 @@ const CompanySetup = () => {
     const file = e.target.files?.[0];
     setInputs({ ...inputs, file });
   };
+
+  useEffect(() => {
+    setInputs({
+        name: singleCompany.name || "",
+        description: singleCompany.description || "",
+        website: singleCompany.website || "",
+        location: singleCompany.location || "",
+        file: singleCompany.file || null
+    })
+},[singleCompany]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,7 +66,7 @@ const CompanySetup = () => {
         }
       );
       if(response.status===200){
-        toast.success(response.data.message);
+         toast.success(response.data.message);
          navigate("/admin/companies")
       }
       console.log(response)

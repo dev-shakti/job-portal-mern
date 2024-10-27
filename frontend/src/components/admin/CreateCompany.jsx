@@ -7,7 +7,7 @@ import { COMPANY_API_END_POINT } from "@/utilis/const";
 import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { registerSingleCompany } from "@/store/companyslice";
+import {setSingleCompany } from "@/store/companyslice";
 
 const CreateCompany = () => {
   const [name, setName] = useState("");
@@ -28,7 +28,7 @@ const CreateCompany = () => {
         }
       );
       console.log(response)
-      dispatch(registerSingleCompany(response.data.newCompany));
+      dispatch(setSingleCompany(response.data.newCompany));
       const companyId = response?.data?.newCompany?._id;
       navigate(`/admin/company/${companyId}`);
       toast.success(response.data.msg);

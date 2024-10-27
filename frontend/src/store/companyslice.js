@@ -14,7 +14,7 @@ const companySlice=createSlice({
         setLoading:(state,action) => {
             state.isLoading=action.payload;
         },
-        registerSingleCompany:(state,action) => {
+        setSingleCompany:(state,action) => {
             state.singleCompany=action.payload;
         },
         getAllCompanies:(state,action) => {
@@ -25,7 +25,7 @@ const companySlice=createSlice({
 
 
 export const { 
-    registerSingleCompany,
+    setSingleCompany,
     getAllCompanies,
     setLoading
 } = companySlice.actions;
