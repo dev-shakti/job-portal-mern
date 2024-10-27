@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    singleCompany:null
+    isLoading:false,
+    singleCompany:null,
+    companies:[]
 }
     
 
@@ -9,13 +11,23 @@ const companySlice=createSlice({
     name:"company",
     initialState,
     reducers:{
+        setLoading:(state,action) => {
+            state.isLoading=action.payload;
+        },
         registerSingleCompany:(state,action) => {
             state.singleCompany=action.payload;
+        },
+        getAllCompanies:(state,action) => {
+            state.companies=action.payload;
         },
     }
 })
 
 
-export const { registerSingleCompany} = companySlice.actions;
+export const { 
+    registerSingleCompany,
+    getAllCompanies,
+    setLoading
+} = companySlice.actions;
 
 export default companySlice.reducer;

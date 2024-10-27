@@ -1,4 +1,6 @@
 const Company = require("../models/companyModel");
+const getDataUri = require("../utilis/dataUri");
+const cloudinary=require("../utilis/clodinary");
 
 const registerCompany = async (req, res) => {
  
@@ -70,6 +72,7 @@ const getCompanyById = async (req, res) => {
 };
 
 const updateCompany = async (req, res) => {
+  console.log(req.body)
   try {
     const { name, description, website, location } = req.body;
 

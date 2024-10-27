@@ -15,7 +15,7 @@ const CreateCompany = () => {
   const navigate=useNavigate();
 
   const registerNewCompany = async () => {
-    console.log(name);
+    
     try {
       const response = await axios.post(
         `${COMPANY_API_END_POINT}/registercompany`,
