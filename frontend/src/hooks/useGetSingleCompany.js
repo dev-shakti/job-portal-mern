@@ -15,7 +15,7 @@ export const useGetSingleCompany = ({ companyId }) => {
           { withCredentials: true }
         );
         if (response.status === 200) {
-          dispatch(setSingleCompany(response.data.newCompany))
+          dispatch(setSingleCompany(response.data.company))
         }
       } catch (error) {
         console.error(error);

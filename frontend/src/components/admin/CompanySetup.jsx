@@ -8,7 +8,7 @@ import axios from "axios";
 import { COMPANY_API_END_POINT } from "@/utilis/const";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
-import { setLoading } from "@/store/companyslice";
+import { setLoading, setSingleCompany } from "@/store/companyslice";
 import { useGetSingleCompany } from "@/hooks/useGetSingleCompany";
 
 const CompanySetup = () => {
@@ -66,6 +66,7 @@ const CompanySetup = () => {
         }
       );
       if(response.status===200){
+        dispatch(setSingleCompany(response.data.company))
          toast.success(response.data.message);
          navigate("/admin/companies")
       }
