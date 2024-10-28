@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Link } from "react-router-dom";
 import { useGetAllCompanies } from "@/hooks/useGetAllCompanies";
 import AdminCompanyTable from "./AdminCompanyTable";
+import { setSearchCompanyByText } from "@/store/companyslice";
+import { useDispatch } from "react-redux";
 
 const Companies = () => {
   useGetAllCompanies()
   const [input, setInput] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+     dispatch(setSearchCompanyByText(input))
+  },[input,dispatch])
   
   return (
     <div className="max-w-6xl mx-auto my-10">

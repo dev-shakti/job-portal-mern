@@ -12,9 +12,22 @@ import {
 import { useSelector } from "react-redux";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const AdminCompanyTable = () => {
-  const { companies } = useSelector((state) => state.company);
+  const { searchCompanyByText,companies } = useSelector((state) => state.company);
+  const [filterCompany,setFilterCompany]=useState(companies);
+
+  useEffect(()=>{
+    const filteredCompany = companies.length >= 0 && companies.filter((company)=>{
+        if(!searchCompanyByText){
+          return true;
+        };
+        return company?.name?.toLowerCase().includes(searchCompanyByText.toLowerCase());
+
+    });
+    setFilterCompany(filteredCompany);
+},[companies,searchCompanyByText])
   return (
     <div className="max-w-6xl mx-auto mt-10">
       <Table>
@@ -29,10 +42,10 @@ const AdminCompanyTable = () => {
         </TableHeader>
 
         <TableBody>
-          {companies.length <= 0 ? (
+          {filterCompany.length <= 0 ? (
             <span>You haven't registered any company yet.</span>
           ) : (
-            companies?.map((company) => (
+            filterCompany?.map((company) => (
               <tr key={company._id}>
                 <TableCell>
                   <Avatar>
