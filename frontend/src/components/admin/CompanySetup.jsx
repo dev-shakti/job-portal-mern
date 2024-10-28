@@ -3,11 +3,11 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { COMPANY_API_END_POINT } from "@/utilis/const";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { setLoading, setSingleCompany } from "@/store/companyslice";
 import { useGetSingleCompany } from "@/hooks/useGetSingleCompany";
 
@@ -20,10 +20,10 @@ const CompanySetup = () => {
     file: null,
   });
   const params = useParams();
-  useGetSingleCompany(params.id)
+  useGetSingleCompany(params.id);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, singleCompany} = useSelector((state) => state.company);
+  const { isLoading, singleCompany } = useSelector((state) => state.company);
 
   const handleInputChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -35,13 +35,13 @@ const CompanySetup = () => {
 
   useEffect(() => {
     setInputs({
-        name: singleCompany.name || "",
-        description: singleCompany.description || "",
-        website: singleCompany.website || "",
-        location: singleCompany.location || "",
-        file: singleCompany.file || null
-    })
-},[singleCompany]);
+      name: singleCompany.name || "",
+      description: singleCompany.description || "",
+      website: singleCompany.website || "",
+      location: singleCompany.location || "",
+      file: singleCompany.file || null,
+    });
+  }, [singleCompany]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,7 +54,7 @@ const CompanySetup = () => {
       formData.append("file", inputs.file);
     }
     try {
-      dispatch(setLoading(true))
+      dispatch(setLoading(true));
       const response = await axios.put(
         `${COMPANY_API_END_POINT}/updateCompany/${params.id}`,
         formData,
@@ -65,18 +65,17 @@ const CompanySetup = () => {
           withCredentials: true,
         }
       );
-      if(response.status===200){
-        dispatch(setSingleCompany(response.data.company))
-         toast.success(response.data.message);
-         navigate("/admin/companies")
+      if (response.status === 200) {
+        dispatch(setSingleCompany(response.data.company));
+        toast.success(response.data.message);
+        navigate("/admin/companies");
       }
-      console.log(response)
-      
+      console.log(response);
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
-    }finally{
-      dispatch(setLoading(false))
+    } finally {
+      dispatch(setLoading(false));
     }
   };
   return (
@@ -86,6 +85,13 @@ const CompanySetup = () => {
         onSubmit={handleSubmit}
         className="max-w-4xl mx-auto my-10  p-8 border shadow-lg border-slate-200 rounded-md"
       >
+        <Link to="/admin/companies">
+          <Button className="mb-4" variant="outline">
+            <ArrowLeft />
+            <span className="ml-1">Back</span>
+          </Button>
+        </Link>
+
         <div className="grid grid-cols-2 gap-4">
           <div>
             <Label className="text-lg font-medium">Name</Label>
@@ -141,21 +147,16 @@ const CompanySetup = () => {
             />
           </div>
         </div>
-        <Button
-              className="w-full mt-8"
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  <span className="ml-2">Updating...</span>
-                </>
-              ) : (
-                <span className="ml-2">Update</span>
-              )}
-             
-            </Button>
+        <Button className="w-full mt-8" type="submit" disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" />
+              <span className="ml-2">Updating...</span>
+            </>
+          ) : (
+            <span className="ml-2">Update</span>
+          )}
+        </Button>
       </form>
     </div>
   );
