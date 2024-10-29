@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 const AdminCompanyTable = () => {
   const { searchCompanyByText,companies } = useSelector((state) => state.company);
   const [filterCompany,setFilterCompany]=useState(companies);
-
+  console.log(companies)
   useEffect(()=>{
     const filteredCompany = companies.length >= 0 && companies.filter((company)=>{
         if(!searchCompanyByText){
@@ -43,7 +43,7 @@ const AdminCompanyTable = () => {
 
         <TableBody>
           {filterCompany.length <= 0 ? (
-            <span>You haven't registered any company yet.</span>
+            <span className=" text-red-600">***You haven't registered any company yet.</span>
           ) : (
             filterCompany?.map((company) => (
               <tr key={company._id}>

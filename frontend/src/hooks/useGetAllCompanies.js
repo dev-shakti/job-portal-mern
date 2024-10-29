@@ -16,7 +16,9 @@ export const useGetAllCompanies= () => {
           { withCredentials: true }
         );
         if (response.status === 200) {
-          dispatch(setAllCompanies(response.data.companies))
+          const companies = response.data.companies || [];
+          dispatch(setAllCompanies(companies));
+          console.log(response.data)
         }
       } catch (error) {
         console.error(error);

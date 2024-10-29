@@ -31,9 +31,12 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* left */}
         <div>
+          <Link to="/">
           <h2 className="text-2xl font-bold">
             Job <span className="text-[#F83002]">Portal</span>
           </h2>
+          </Link>
+         
         </div>
         {/* right */}
         <div className="flex items-center gap-8">

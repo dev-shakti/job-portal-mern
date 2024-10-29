@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom';
 import { Input } from '../ui/input';
 import { useState } from 'react';
 import { setSearchJobByText } from '@/store/jobSlice';
+import { useGetAllAdminJobs } from '@/hooks/useGetAllAdminJobs';
 
 const AdminJobs = () => {
+  useGetAllAdminJobs()
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
 

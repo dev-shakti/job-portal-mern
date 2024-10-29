@@ -33,16 +33,6 @@ const CompanySetup = () => {
     setInputs({ ...inputs, file });
   };
 
-  useEffect(() => {
-    setInputs({
-      name: singleCompany.name || "",
-      description: singleCompany.description || "",
-      website: singleCompany.website || "",
-      location: singleCompany.location || "",
-      file: singleCompany.file || null,
-    });
-  }, [singleCompany]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -66,11 +56,9 @@ const CompanySetup = () => {
         }
       );
       if (response.status === 200) {
-        dispatch(setSingleCompany(response.data.company));
         toast.success(response.data.message);
         navigate("/admin/companies");
       }
-      console.log(response);
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
@@ -78,12 +66,23 @@ const CompanySetup = () => {
       dispatch(setLoading(false));
     }
   };
+
+  useEffect(() => {
+    setInputs({
+      name: singleCompany.name || "",
+      description: singleCompany.description || "",
+      website: singleCompany.website || "",
+      location: singleCompany.location || "",
+      file: singleCompany.file || null,
+    });
+  }, [singleCompany]);
+
   return (
     <div>
       <h1 className="font-bold text-2xl text-center mt-10">Company Setup</h1>
       <form
         onSubmit={handleSubmit}
-        className="max-w-4xl mx-auto my-10  p-8 border shadow-lg border-slate-200 rounded-md"
+        className="max-w-3xl mx-auto my-10  p-8 border shadow-lg border-slate-200 rounded-md"
       >
         <Link to="/admin/companies">
           <Button className="mb-4" variant="outline">

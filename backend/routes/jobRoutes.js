@@ -18,6 +18,6 @@ router.get("/getjobs", authenticate, getAllJobs);
 router.get("/getjob/:id", authenticate, getSingleJob);
 
 // Get admin jobs by ID
-router.get("/getadminjobs/:id", authenticate, getAdminJobs);
+router.get("/getadminjobs", authenticate, getAdminJobs);
 
 module.exports=router;

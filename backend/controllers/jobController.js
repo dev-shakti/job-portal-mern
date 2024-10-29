@@ -2,6 +2,7 @@ const Job = require("../models/jobModel");
 
 // Register a new job
 const postJob = async (req,res) => {
+  console.log(req.body)
   try {
     const {
       title,
@@ -12,7 +13,7 @@ const postJob = async (req,res) => {
       jobType,
       experience,
       position,
-      company,
+      companyId,
     } = req.body;
     const userId = req.userId;
 
@@ -25,7 +26,7 @@ const postJob = async (req,res) => {
       || !jobType 
       || !experience
       || !position 
-      || !company
+      || !companyId
       ) {
         return res.status(400).json({
             message: "Something is missing."})
@@ -41,7 +42,7 @@ const postJob = async (req,res) => {
         position:Number(position),
         jobType,
         experience,
-        company,
+        company:companyId,
         created_by:userId
     })
     return res.status(201).json({
@@ -66,7 +67,9 @@ const getAllJobs = async (req,res) => {
             { description: { $regex: keyword, $options: "i" } },
         ]
     };
-    const jobs = await Job.find(query).populate('company').sort({ createdAt: -1 });
+    const jobs = await Job.find(query).populate({
+      path: "company"
+  }).sort({ createdAt: -1 });
     return res.status(200).json({ jobs });
 
   } catch (error) {
@@ -95,9 +98,13 @@ const getSingleJob = async (req,res) => {
 };
 
 const getAdminJobs = async (req,res) => {
+  
   try {
-    const adminId=req.params.id;
-    const jobs=await Job.find({created_by:adminId});
+    const adminId=req.userId;
+    const jobs = await Job.find({ created_by: adminId }).populate({
+      path:'company',
+      createdAt:-1
+  });
     if (!jobs) {
         return res.status(404).json({message: "Jobs not found."});
     };

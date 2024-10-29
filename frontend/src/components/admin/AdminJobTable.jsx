@@ -14,13 +14,13 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 const AdminJobTable = () => {
-  const { searchJobByText, allJobs } = useSelector((state) => state.job);
-  const [filterJob, setFilterJob] = useState(allJobs);
+  const { searchJobByText, allAdminJobs } = useSelector((state) => state.job);
+  const [filterJob, setFilterJob] = useState(allAdminJobs);
 
   useEffect(() => {
     const filteredJob =
-      allJobs.length >= 0 &&
-      allJobs.filter((job) => {
+    allAdminJobs.length >= 0 &&
+    allAdminJobs.filter((job) => {
         if (!searchJobByText) {
           return true;
         }
@@ -32,7 +32,7 @@ const AdminJobTable = () => {
         );
       });
     setFilterJob(filteredJob);
-  }, [allJobs, searchJobByText]);
+  }, [allAdminJobs, searchJobByText]);
   
   return (
     <div className="max-w-6xl mx-auto mt-10">
