@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const Jobs = () => {
   const {allJobs}=useSelector((state) => state.job);
-  
+  console.log(allJobs)
   return (
     <div className="px-4 py-16">
       <div className="max-w-7xl mx-auto flex gap-8">

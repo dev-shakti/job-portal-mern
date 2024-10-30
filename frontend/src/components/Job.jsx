@@ -8,11 +8,11 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Bookmark } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 
 const Job = ({ job }) => {
   const navigate = useNavigate();
-  const jobId = "sfsfewew";
-
+ 
   const daysAgoFunction = (mongodbTime) => {
     const createdAt = new Date(mongodbTime);
     const currentTime = new Date();
@@ -34,7 +34,10 @@ const Job = ({ job }) => {
           </Button>
         </div>
         <div className="flex gap-4">
-          <p>Logo</p>
+          <Avatar>
+            <AvatarImage src={job?.company?.logo} className="h-10" />
+          </Avatar>
+
           <div>
             <h4 className="text-lg font-medium ">{job?.company?.name}</h4>
             <p className="text-sm text-slate-500">India</p>
@@ -59,7 +62,7 @@ const Job = ({ job }) => {
       <CardFooter>
         <Button
           variant={"ghost"}
-          onClick={() => navigate(`/jobdetails/${jobId}`)}
+          onClick={() => navigate(`/jobdetails/${job?._id}`)}
         >
           Details
         </Button>
