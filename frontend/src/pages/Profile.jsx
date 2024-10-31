@@ -4,15 +4,19 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import UpdateProfileDialog from "@/components/UpdateProfileDialog";
+import { useGetAllAppliedJobs } from "@/hooks/useGetAllAppliedJobs";
 import { Contact, Mail, Pen } from "lucide-react";
-import { useState } from "react";
+import {useState } from "react";
 import { useSelector } from "react-redux";
 
 const isResume = true;
 
 const Profile = () => {
+  
   const [open,setOpen]=useState(false);
   const {user } = useSelector((state) => state.auth);
+  useGetAllAppliedJobs();
+  
 
   return (
     <div className="px-4 py-12">
