@@ -1,4 +1,4 @@
-import { Edit2, MoreHorizontal } from "lucide-react";
+import { Edit2, Eye, MoreHorizontal } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import {
   Table,
@@ -66,6 +66,7 @@ const AdminCompanyTable = () => {
                           <span className="text-sm">Edit</span>
                         </Link>
                       </div>
+                 
                     </PopoverContent>
                   </Popover>
                 </TableCell>

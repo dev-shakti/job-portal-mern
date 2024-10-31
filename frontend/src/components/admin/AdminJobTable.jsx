@@ -1,4 +1,4 @@
-import { Edit2, MoreHorizontal } from "lucide-react";
+import { Edit2, Eye, MoreHorizontal } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import {
   Table,
@@ -66,6 +66,12 @@ const AdminJobTable = () => {
                         <Edit2 className="h-4" />
                         <Link to={`/admin/job/${job._id}`}>
                           <span className="text-sm">Edit</span>
+                        </Link>
+                      </div>
+                      <div className="flex items-center gap-2 cursor-pointer">
+                        <Eye className="h-4" />
+                        <Link to={`/admin/job/${job._id}/applicants`}>
+                          <span className="text-sm">Applicant</span>
                         </Link>
                       </div>
                     </PopoverContent>
