@@ -7,6 +7,9 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "./ui/button";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSearchQuery } from "@/store/jobSlice";
 
 const category = [
   "Frontend Developer",
@@ -17,6 +20,14 @@ const category = [
 ];
 
 const CarousalCats = () => {
+  const dispatch = useDispatch();
+  const navigate=useNavigate();
+
+  const handleSearchCats = (cat) => {
+    dispatch(setSearchQuery(cat))
+    navigate("/browse")
+  }
+
   return (
     <div className="my-20 px-4">
       <Carousel className="w-full max-w-xl mx-auto">
@@ -26,7 +37,7 @@ const CarousalCats = () => {
               key={index}
               className="pl-1 md:basis-1/2 lg:basis-1/3"
             >
-              <Button variant="outline" className="rounded-full">
+              <Button variant="outline" className="rounded-full" onClick={() => handleSearchCats(cat)}>
                 {cat}
               </Button>
             </CarouselItem>
