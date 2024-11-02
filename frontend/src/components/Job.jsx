@@ -7,7 +7,7 @@ import {
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Bookmark } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 
 const Job = ({ job }) => {

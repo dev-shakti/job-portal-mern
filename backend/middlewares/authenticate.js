@@ -1,25 +1,24 @@
-const jwt=require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
-const authenticate = async(req,res,next) => {
-     try {
-        const token=req.cookies.token;
-        if(!token){
-            return res.status(401).json({msg:"Authorization token is required"});
-        }
-        
-        // Verify the token 
-        const decode=jwt.verify(token, process.env.SECRET_KEY);
-        console.log(decode)
-        if(!decode){
-            return res.status(401).json({msg:"Invalid token"});
-        }
+const authenticate = async (req, res, next) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ msg: "Authorization token is required" });
+    }
 
-        req.userId=decode.userId;
-        next()
-     } catch (error) {
-        console.error("Error during authentication:", error);
-        return res.status(401).json({ msg: "Invalid or expired token" });
-     }
-}
+    // Verify the token
+    const decode = jwt.verify(token, process.env.SECRET_KEY);
+    if (!decode) {
+      return res.status(401).json({ msg: "Invalid token" });
+    }
 
-module.exports=authenticate;
+    req.userId = decode.userId;
+    next();
+  } catch (error) {
+    console.error("Error during authentication:", error);
+    return res.status(401).json({ msg: "Invalid or expired token" });
+  }
+};
+
+module.exports = authenticate;

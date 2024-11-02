@@ -12,16 +12,22 @@ const JobDetails = () => {
   const params = useParams();
   const jobId = params.id;
   const { user } = useSelector((state) => state.auth);
-  console.log(user?._id);
   const { singleJob } = useSelector((state) => state.job);
   const dispatch = useDispatch();
-  const isIntiallyApplied =
-    singleJob?.applications?.some(
-      (application) => application.applicant === user?._id
-    ) || false;
-  const [isApplied, setIsApplied] = useState(isIntiallyApplied);
+ // console.log(singleJob)
+  // Check if the user has already applied based on Redux state
+  const isApplied = singleJob?.applications?.some(
+    (application) => application.applicant === user?._id
+  );
+
+  // console.log("isApplied:", isApplied);
+  // console.log("User ID:", user?._id);
 
   const applyJobHandler = async () => {
+    if (isApplied) {
+      toast.error("You have already applied for this job.");
+      return; // Exit if already applied
+    }
     try {
       const res = await axios.get(
         `${APPLICATION_API_END_POINT}/apply/${jobId}`,
@@ -29,7 +35,6 @@ const JobDetails = () => {
       );
 
       if (res.status === 200) {
-        setIsApplied(true); // Update the local state
         const updatedSingleJob = {
           ...singleJob,
           applications: [...singleJob.applications, { applicant: user?._id }],
@@ -42,6 +47,7 @@ const JobDetails = () => {
       toast.error(error.response.data.message);
     }
   };
+
   useEffect(() => {
     const fetchJob = async () => {
       try {
@@ -49,18 +55,14 @@ const JobDetails = () => {
           withCredentials: true,
         });
         dispatch(getSingleJob(res.data.job));
-        setIsApplied(
-          res.data.job.applications.some(
-            (application) => application.applicant === user?._id
-          )
-        ); // Ensure the state is in sync with fetched data
+        console.log("Fetched job:", res.data.job); 
       } catch (error) {
         console.error("Error fetching job data:", error);
       }
     };
 
     fetchJob();
-  }, [dispatch, jobId, user?._id]);
+  }, [dispatch, jobId]);
 
   return (
     <div className="px-4 py-12">
@@ -82,7 +84,7 @@ const JobDetails = () => {
           </div>
 
           <Button
-          onClick={applyJobHandler}
+            onClick={applyJobHandler}
             disabled={isApplied}
             className={`rounded-lg ${
               isApplied
@@ -117,7 +119,7 @@ const JobDetails = () => {
             {singleJob?.salary} LPA
           </p>
           <p>
-            <b>Total Applicants: </b>4
+            <b>Total Applicants: {singleJob?.applications?.length} </b>
           </p>
           <p>
             <b>Posted Date: </b>

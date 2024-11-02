@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 const AdminCompanyTable = () => {
   const { searchCompanyByText,companies } = useSelector((state) => state.company);
   const [filterCompany,setFilterCompany]=useState(companies);
-  console.log(companies)
+
   useEffect(()=>{
     const filteredCompany = companies.length >= 0 && companies.filter((company)=>{
         if(!searchCompanyByText){

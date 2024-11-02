@@ -14,6 +14,10 @@ import LoginPage from "./pages/LoginPage";
 import Profile from "./pages/Profile";
 import RegisterPage from "./pages/RegisterPage";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { PublicRoute } from "./routes/PublicRoute";
+import {ProtectedRoute} from "./routes/ProtectedRoute";
+import { PrivateRoute } from "./routes/privateRoute";
+
 
 const router = createBrowserRouter([
   {
@@ -26,43 +30,43 @@ const router = createBrowserRouter([
       },
       {
         path: '/jobs',
-        element: <Jobs/>,
+        element: <PrivateRoute><Jobs/></PrivateRoute>,
       },
       {
         path: '/browse',
-        element: <Browse/>,
+        element:<PrivateRoute><Browse/></PrivateRoute> ,
       },
       {
         path: '/profile',
-        element: <Profile/>,
+        element:<PrivateRoute><Profile/></PrivateRoute> ,
       },
       {
         path: '/jobdetails/:id',
-        element: <JobDetails/>,
+        element: <PrivateRoute><JobDetails/></PrivateRoute>,
       },
       {
         path: '/admin/companies',
-        element: <Companies/>,
+        element: <ProtectedRoute><Companies/></ProtectedRoute>,
       },
       {
         path: '/admin/company/create',
-        element: <CreateCompany/>,
+        element: <ProtectedRoute><CreateCompany/></ProtectedRoute>,
       },
       {
         path: '/admin/company/:id',
-        element: <CompanySetup/>,
+        element: <ProtectedRoute><CompanySetup/></ProtectedRoute>,
       },
       {
         path: '/admin/jobs',
-        element: <AdminJobs/>,
+        element: <ProtectedRoute><AdminJobs/></ProtectedRoute>,
       },
       {
         path: '/admin/job/create',
-        element: <PostJobs/>,
+        element: <ProtectedRoute><PostJobs/></ProtectedRoute>,
       },
       {
         path: '/admin/job/:id/applicants',
-        element: <Applicants/>,
+        element: <ProtectedRoute><Applicants/></ProtectedRoute>,
       },
     ],
   },
@@ -72,11 +76,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'login',
-        element: <LoginPage />,
+        element:<PublicRoute><LoginPage /></PublicRoute> ,
       },
       {
         path: 'register',
-        element: <RegisterPage />,
+        element:<PublicRoute><RegisterPage /></PublicRoute> ,
       },
     ],
   },
