@@ -9,6 +9,8 @@ import { Button } from "./ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "@/http/apis";
 import { setUser } from "@/store/authSlice";
+import { LogOut, User2 } from "lucide-react";
+import { toast } from "sonner";
 
 const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
@@ -21,9 +23,11 @@ const Navbar = () => {
       if (response.status === 200) {
         dispatch(setUser(null));
         navigate("/");
+        toast.success(response.data.msg);
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.response?.data?.msg || "An error occurred");
     }
   };
   return (
@@ -32,11 +36,10 @@ const Navbar = () => {
         {/* left */}
         <div>
           <Link to="/">
-          <h2 className="text-2xl font-bold">
-            Job <span className="text-[#F83002]">Portal</span>
-          </h2>
+            <h2 className="text-2xl font-bold">
+              Job <span className="text-[#F83002]">Portal</span>
+            </h2>
           </Link>
-         
         </div>
         {/* right */}
         <div className="flex items-center gap-8">
@@ -83,19 +86,30 @@ const Navbar = () => {
               <PopoverContent className="w-80 flex flex-col gap-4">
                 <div className="flex gap-4 items-start">
                   <Avatar>
-                    <AvatarImage src={user?.profile?.profilePhoto}/>
+                    <AvatarImage src={user?.profile?.profilePhoto} />
                   </Avatar>
-                  <span className="text-sm font-bold">{user?.fullname}</span>
+                  <div className="flex flex-col gap-2">
+                    <span className="text-sm font-bold">{user?.fullname}</span>
+                    <span className="text-xs font-medium text-gray-600">
+                      {user?.profile?.bio}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-4">
                   <Link to="/profile">
-                    <Button variant={"outline"} className="w-full">
-                      View Profile
+                    <Button variant="link" className="flex items-center gap-2">
+                      <User2 />
+                      <span>View Profile</span>
                     </Button>
                   </Link>
                   <Link>
-                    <Button className="w-full" onClick={handleLogout}>
-                      Logout
+                    <Button
+                      className="flex items-center gap-2"
+                      variant="link"
+                      onClick={handleLogout}
+                    >
+                      <LogOut />
+                      <span>Logout</span>
                     </Button>
                   </Link>
                 </div>

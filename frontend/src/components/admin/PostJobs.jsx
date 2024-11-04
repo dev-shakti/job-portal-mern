@@ -48,7 +48,6 @@ const PostJobs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs)
     try {
       dispatch(setLoading(true));
       const response = await axios.post(

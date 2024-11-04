@@ -46,7 +46,7 @@ const userRegister = async (req, res) => {
     });
 
     return res.status(201).json({
-      message: "Account created successfully.",
+      msg: "Account created successfully.",
       userId: newUser._id,
     });
   } catch (error) {
@@ -81,7 +81,7 @@ const userLogin = async (req, res) => {
     // check role is correct or not
     if (role !== user.role) {
       return res.status(400).json({
-        message: "Account doesn't exist with current role.",
+        msg: "Account doesn't exist with current role.",
       });
     }
 
@@ -120,7 +120,7 @@ const userLogin = async (req, res) => {
 const userLogout = async (req, res) => {
   try {
     return res.status(200).cookie("token", "", { maxAge: 0 }).json({
-      message: "Logged out successfully.",
+      msg: "Logged out successfully.",
     });
   } catch (error) {
     console.error("Error while user login", error);
@@ -135,7 +135,6 @@ const userProfileUpdate = async (req, res) => {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
 
     const file = req.file;
-    console.log(req.body,req.file)
     const fileUri = getDataUri(file);
     const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 

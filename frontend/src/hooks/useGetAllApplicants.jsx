@@ -14,7 +14,6 @@ const useGetAllApplicants = (jobId) => {
           `${APPLICATION_API_END_POINT}/${jobId}/applicants`,
           { withCredentials: true }
         );
-       
           dispatch(setAllApplicants(response.data.job));
     
       } catch (error) {

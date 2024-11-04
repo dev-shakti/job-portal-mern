@@ -10,7 +10,6 @@ import {
   TableRow,
 } from "../ui/table";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
 import axios from "axios";
 import { APPLICATION_API_END_POINT } from "@/utilis/const";
 import { toast } from "sonner";
@@ -29,7 +28,7 @@ const ApplicantsTable = () => {
           withCredentials: true,
         }
       );
-      console.log(res.data);
+    
       if (res.status === 200) {
         toast.success(res.data.message);
       }
@@ -53,7 +52,9 @@ const ApplicantsTable = () => {
       </TableHeader>
 
       <TableBody>
-        {allApplicants &&
+        {allApplicants.applications.length <= 0 ? (
+          <span className="text-red-500">No Applicants Found</span>
+        ) : (
           allApplicants.applications.map((application) => (
             <tr key={application._id}>
               <TableCell>{application?.applicant?.fullname}</TableCell>
@@ -73,7 +74,7 @@ const ApplicantsTable = () => {
                 )}
               </TableCell>
               <TableCell>
-                {application?.applicant?.createdAt.split("T"[0])}
+                {application?.applicant?.createdAt.split("T")[0]}
               </TableCell>
               <TableCell className="text-right">
                 <Popover>
@@ -94,7 +95,8 @@ const ApplicantsTable = () => {
                 </Popover>
               </TableCell>
             </tr>
-          ))}
+          ))
+        )}
       </TableBody>
     </Table>
   );
