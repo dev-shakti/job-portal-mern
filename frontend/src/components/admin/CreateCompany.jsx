@@ -27,7 +27,7 @@ const CreateCompany = () => {
           withCredentials: true,
         }
       );
-      console.log(response)
+      
       dispatch(setSingleCompany(response.data.newCompany));
       const companyId = response?.data?.newCompany?._id;
       navigate(`/admin/company/${companyId}`);

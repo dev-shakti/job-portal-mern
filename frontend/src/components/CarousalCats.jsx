@@ -5,7 +5,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";

@@ -8,7 +8,7 @@ import axios from "axios";
 import { COMPANY_API_END_POINT } from "@/utilis/const";
 import { toast } from "sonner";
 import { ArrowLeft, Loader2 } from "lucide-react";
-import { setLoading, setSingleCompany } from "@/store/companyslice";
+import { setLoading } from "@/store/companyslice";
 import { useGetSingleCompany } from "@/hooks/useGetSingleCompany";
 
 const CompanySetup = () => {
