@@ -3,17 +3,12 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { setSearchQuery } from "@/store/jobSlice";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { Button } from "./ui/button";
 
 const filterData = [
   {
     filterType: "Location",
-    arrays: [
-      "Mumbai",
-      "Pune",
-      "kolkata",
-      "Hyderbad",
-      "Bangalore",
-    ],
+    arrays: ["Mumbai", "Pune", "kolkata", "Hyderbad", "Bangalore"],
   },
   {
     filterType: "Postion",
@@ -27,30 +22,33 @@ const filterData = [
   },
   {
     filterType: "Salary",
-    arrays: [
-      "0-2 LPA",
-      "2-4 LPA",
-      "4.7.5 LPA",
-      "7.5-10 LPA",
-      "10-12 LPA",
-    ],
+    arrays: ["0-2 LPA", "2-4 LPA", "4.7.5 LPA", "7.5-10 LPA", "10-12 LPA"],
   },
 ];
 const FilterCards = () => {
   const [selectedValue, setSelectedValue] = useState("");
   const dispatch = useDispatch();
+
   const changeHandler = (value) => {
     setSelectedValue(value);
- 
   };
 
+  const resetFilter = () => {
+    dispatch(setSearchQuery(""));
+    setSelectedValue("")
+  }
+
   useEffect(() => {
-     dispatch(setSearchQuery(selectedValue))
-  },[selectedValue,dispatch])
+    dispatch(setSearchQuery(selectedValue));
+  }, [selectedValue, dispatch]);
 
   return (
     <div className="w-full bg-slate-100 p-3 rounded-md">
-      <h2 className="font-medium text-xl mb-4">Filter Jobs</h2>
+      <div className="flex items-center justify-between">
+        <h2 className="font-medium text-xl mb-4">Filter Jobs</h2>
+        <Button variant={"link"} onClick={resetFilter}>Reset</Button>
+      </div>
+
       <RadioGroup value={selectedValue} onValueChange={changeHandler}>
         {filterData.map((item, index) => (
           <div key={index}>
@@ -63,7 +61,7 @@ const FilterCards = () => {
                   <RadioGroupItem value={arr} id={itemId} />
                   <Label
                     htmlFor={itemId}
-                    className="text-gray-700 font-normal ml-2"
+                    className="text-gray-700 font-medium ml-2"
                   >
                     {arr}
                   </Label>
