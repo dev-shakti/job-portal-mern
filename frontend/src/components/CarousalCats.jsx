@@ -28,7 +28,7 @@ const CarousalCats = () => {
   }
 
   return (
-    <div className="my-20 px-4">
+    <div className="hidden md:my-20 md:px-4">
       <Carousel className="w-full max-w-xl mx-auto">
         <CarouselContent className="-ml-1">
           {category.map((cat, index) => (

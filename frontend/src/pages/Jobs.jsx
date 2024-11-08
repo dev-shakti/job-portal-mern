@@ -23,9 +23,9 @@ const Jobs = () => {
     setFilterJobs(filteredJobs); 
 }, [allJobs, searchQuery,filterJobs]);
   return (
-    <div className="px-4 py-16">
-      <div className="max-w-7xl mx-auto flex gap-8">
-        <div className=" w-[20%]">
+    <div className="px-4 my-12">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8">
+        <div className=" md:w-[20%]">
           <FilterCards/>
         </div>
         {filterJobs.length === 0 ? (

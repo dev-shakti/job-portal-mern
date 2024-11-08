@@ -14,14 +14,13 @@ const JobDetails = () => {
   const { user } = useSelector((state) => state.auth);
   const { singleJob } = useSelector((state) => state.job);
   const dispatch = useDispatch();
- // console.log(singleJob)
+
   // Check if the user has already applied based on Redux state
   const isApplied = singleJob?.applications?.some(
     (application) => application.applicant === user?._id
   );
 
-  // console.log("isApplied:", isApplied);
-  // console.log("User ID:", user?._id);
+
 
   const applyJobHandler = async () => {
     if (isApplied) {
@@ -55,7 +54,6 @@ const JobDetails = () => {
           withCredentials: true,
         });
         dispatch(getSingleJob(res.data.job));
-        console.log("Fetched job:", res.data.job); 
       } catch (error) {
         console.error("Error fetching job data:", error);
       }
@@ -65,7 +63,7 @@ const JobDetails = () => {
   }, [dispatch, jobId]);
 
   return (
-    <div className="px-4 py-12">
+    <div className="px-4 my-12">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-4">

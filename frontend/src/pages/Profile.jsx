@@ -19,7 +19,7 @@ const Profile = () => {
   
 
   return (
-    <div className="px-4 py-12">
+    <div className="px-4 my-12">
       <div className="max-w-5xl mx-auto flex flex-col gap-8 shadow-xl bg-white border border-slate-200 rounded-2xl p-8">
         <div className="flex items-center justify-between">
           <div className="flex gap-4">
@@ -49,10 +49,10 @@ const Profile = () => {
           <p>
             <strong>Skills: </strong>
           </p>
-          <div className="flex gap-4 items-center mt-4">
+          <div className="flex flex-wrap gap-4 items-center mt-4">
             {user?.profile?.skills.length >= 0 ? (
              user?.profile?.skills.map((skill, index) => (
-                <Badge key={index} className="p-2 cursor-pointer bg-slate-500">
+                <Badge  key={index} className="p-2 cursor-pointer ">
                   {skill}
                 </Badge>
               ))

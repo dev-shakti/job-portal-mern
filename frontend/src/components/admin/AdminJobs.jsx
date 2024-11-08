@@ -17,7 +17,7 @@ const AdminJobs = () => {
      dispatch(setSearchJobByText(input))
   },[input,dispatch])
   return (
-    <div className="max-w-6xl mx-auto my-10">
+    <div className="max-w-6xl mx-auto px-4 my-12">
     <div className="flex items-center justify-between">
       <Input
         className="w-fit"

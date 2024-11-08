@@ -10,7 +10,7 @@ const Applicants = () => {
    useGetAllApplicants(params.id);
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto px-4">
       <h1 className="text-xl font-bold my-5">
         Applicants: <span className="text-blue-500">({allApplicants?.applications?.length})</span>
       </h1>

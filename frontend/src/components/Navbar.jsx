@@ -31,18 +31,18 @@ const Navbar = () => {
     }
   };
   return (
-    <nav className="border-b bg-white py-4">
+    <nav className="border-b bg-white p-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* left */}
         <div>
           <Link to="/">
-            <h2 className="text-2xl font-bold">
+            <h2 className="text-xl md:text-2xl font-bold">
               Job <span className="text-[#F83002]">Portal</span>
             </h2>
           </Link>
         </div>
         {/* right */}
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-6 md:gap-8">
           <ul className="flex items-center gap-4">
             {user && user?.role === "recruiter" ? (
               <>
