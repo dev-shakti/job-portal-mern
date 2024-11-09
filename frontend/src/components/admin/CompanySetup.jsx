@@ -19,12 +19,11 @@ const CompanySetup = () => {
     description: "",
     file: null,
   });
-  const params = useParams();
-  useGetSingleCompany(params.id);
+   const params = useParams();
+   useGetSingleCompany({companyId:params.id});
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, singleCompany } = useSelector((state) => state.company);
-
   const handleInputChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };

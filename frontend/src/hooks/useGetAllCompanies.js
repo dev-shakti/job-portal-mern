@@ -18,7 +18,6 @@ export const useGetAllCompanies= () => {
         if (response.status === 200) {
           const companies = response.data.companies || [];
           dispatch(setAllCompanies(companies));
-          console.log(response.data)
         }
       } catch (error) {
         console.error(error);

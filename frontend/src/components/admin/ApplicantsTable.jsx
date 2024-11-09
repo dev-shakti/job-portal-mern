@@ -52,8 +52,12 @@ const ApplicantsTable = () => {
       </TableHeader>
 
       <TableBody>
-        {allApplicants.applications.length <= 0 ? (
-          <span className="text-red-500">No Applicants Found</span>
+        {!allApplicants?.applications || allApplicants.applications.length === 0 ? (
+           <TableRow>
+           <TableCell colSpan={6} className="text-center text-red-500">
+             No Applicants Found
+           </TableCell>
+         </TableRow>
         ) : (
           allApplicants.applications.map((application) => (
             <tr key={application._id}>

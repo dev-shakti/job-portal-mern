@@ -38,7 +38,7 @@ const CreateCompany = () => {
     }
   };
   return (
-    <div className="max-w-4xl mx-auto my-10">
+    <div className="max-w-4xl mx-auto px-4 my-12">
       <div className="my-10">
         <h1 className="font-bold text-2xl">Your Company Name</h1>
         <p className="text-slate-500">
