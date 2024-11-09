@@ -2,16 +2,17 @@ import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { COMPANY_API_END_POINT } from "@/utilis/const";
 import { toast } from "sonner";
 import { ArrowLeft, Loader2 } from "lucide-react";
-import { setLoading } from "@/store/companyslice";
 import { useGetSingleCompany } from "@/hooks/useGetSingleCompany";
 
 const CompanySetup = () => {
+  const params = useParams();
+  useGetSingleCompany({ companyId: params.id });
   const [inputs, setInputs] = useState({
     name: "",
     website: "",
@@ -19,11 +20,22 @@ const CompanySetup = () => {
     description: "",
     file: null,
   });
-   const params = useParams();
-   useGetSingleCompany({companyId:params.id});
-  const dispatch = useDispatch();
+  const { singleCompany } = useSelector((state) => state.company);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { isLoading, singleCompany } = useSelector((state) => state.company);
+
+  useEffect(() => {
+    if (singleCompany) {
+      setInputs({
+        name: singleCompany.name || "",
+        description: singleCompany.description || "",
+        website: singleCompany.website || "",
+        location: singleCompany.location || "",
+        file: singleCompany.file || null,
+      });
+    }
+  }, [singleCompany]);
+
   const handleInputChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
@@ -43,7 +55,7 @@ const CompanySetup = () => {
       formData.append("file", inputs.file);
     }
     try {
-      dispatch(setLoading(true));
+      setIsLoading(true);
       const response = await axios.put(
         `${COMPANY_API_END_POINT}/updateCompany/${params.id}`,
         formData,
@@ -60,21 +72,15 @@ const CompanySetup = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message || "Error updating company");
     } finally {
-      dispatch(setLoading(false));
+      setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    setInputs({
-      name: singleCompany.name || "",
-      description: singleCompany.description || "",
-      website: singleCompany.website || "",
-      location: singleCompany.location || "",
-      file: singleCompany.file || null,
-    });
-  }, [singleCompany]);
+  if (!singleCompany || isLoading) {
+    return <div>Loading company details...</div>;
+  }
 
   return (
     <div>

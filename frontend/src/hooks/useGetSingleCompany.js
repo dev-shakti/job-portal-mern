@@ -1,18 +1,18 @@
-import { resetSingleCompany, setSingleCompany } from "@/store/companyslice";
+import { setSingleCompany } from "@/store/companyslice";
 import { COMPANY_API_END_POINT } from "@/utilis/const";
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-export const useGetSingleCompany = ({ companyId }) => {
-  const dispatch = useDispatch();
 
+export const useGetSingleCompany = ({ companyId }) => {
+  const dispatch=useDispatch()
+  
   useEffect(() => {
     if (!companyId) {
       console.error("Invalid company ID");
       return;
     }
-    dispatch(resetSingleCompany())
     const fetchSingleCompany = async () => {
       try {
         const response = await axios.get(
